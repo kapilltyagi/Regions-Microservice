@@ -1,0 +1,57 @@
+server:
+  port: ${PORT:8282}
+spring:
+  application:
+    name: regions-ms
+  profiles:
+    active: dev
+  r2dbc: # should be under 'spring'
+    username: admin
+    password: postgres
+    url: r2dbc:postgresql://localhost/regions
+
+
+admin:
+  flyway:
+    enabled: true
+    url: jdbc:postgresql://localhost/regions
+    username: admin
+    password: postgres
+    baselineOnMigrate: true
+  database:
+    host: localhost
+    port: 5432
+    databaseName: regions
+    username: admin
+    password: postgres
+
+
+---
+spring:
+  profiles: dev
+  devtools:
+    restart:
+      enabled: true
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8010/eureka
+    healthcheck:
+      enabled: true
+  instance:
+    instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+    hostname: localhost
+    lease-renewal-interval-in-seconds: 10
+    lease-expiration-duration-in-seconds: 30
+
+
+
+---
+spring:
+  profiles: qa
+---
+spring:
+  profiles: uat
+---
+spring:
+  profiles: prod
