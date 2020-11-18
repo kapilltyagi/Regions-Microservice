@@ -1,5 +1,6 @@
 package com.tng.regions.exception;
 
+import org.springframework.beans.TypeMismatchException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -20,5 +21,24 @@ public class ApiExceptionHandler {
     public ResponseEntity<Object> handleInvalidFieldException(InvalidFieldException exception){
         InvalidFieldException apiException = new InvalidFieldException(exception.getMessage(), HttpStatus.FAILED_DEPENDENCY);
         return new ResponseEntity<>(exception.getMessage(),HttpStatus.FAILED_DEPENDENCY);
+    }
+
+    @ExceptionHandler(value = {IllegalArgumentException.class})
+    public ResponseEntity<Object> handleIllegalArgumentException(IllegalArgumentException exception){
+        InvalidFieldException apiException = new InvalidFieldException(exception.getMessage(), HttpStatus.NOT_ACCEPTABLE);
+        return new ResponseEntity<>(exception.getMessage(),HttpStatus.NOT_ACCEPTABLE);
+    }
+
+    @ExceptionHandler(value = {TypeMismatchException.class})
+    public ResponseEntity<Object> handleTypeMismatchException(TypeMismatchException exception){
+        InvalidFieldException apiException = new InvalidFieldException(exception.getMessage(), HttpStatus.NOT_ACCEPTABLE);
+        return new ResponseEntity<>(exception.getMessage(),HttpStatus.NOT_ACCEPTABLE);
+    }
+
+    @ExceptionHandler(value = {Exception.class})
+    public ResponseEntity<Object> handleException(Exception exception){
+        InvalidFieldException apiException = new InvalidFieldException(exception.getMessage(), HttpStatus.NOT_ACCEPTABLE);
+
+        return new ResponseEntity<>(exception.getMessage(),HttpStatus.NOT_ACCEPTABLE);
     }
 }
