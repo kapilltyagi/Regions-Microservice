@@ -38,7 +38,6 @@ public class ApiExceptionHandler {
     @ExceptionHandler(value = {Exception.class})
     public ResponseEntity<Object> handleException(Exception exception){
         InvalidFieldException apiException = new InvalidFieldException(exception.getMessage(), HttpStatus.NOT_ACCEPTABLE);
-
         return new ResponseEntity<>(exception.getMessage(),HttpStatus.NOT_ACCEPTABLE);
     }
 }
