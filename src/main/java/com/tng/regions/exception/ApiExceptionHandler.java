@@ -1,5 +1,6 @@
 package com.tng.regions.exception;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.TypeMismatchException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -8,7 +9,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
-
+@Slf4j
 @RestControllerAdvice
 public class ApiExceptionHandler {
     @ExceptionHandler(value = {ApiRequestException.class})
